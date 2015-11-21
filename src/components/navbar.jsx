@@ -17,15 +17,17 @@ export default class NavBar extends Component {
   }
 
   render() {
-    return <Paper rounded={false} zDepth={2} style={this.props.style}>
-      <h3>
-        <FlatButton linkButton={true} href="/" secondary={true}
-         style={{backgroundColor: '#00bcd4', color: 'white'}}
-         rippleColor="white" label={this.props.title} />
-        <FlatButton linkButton={true} href="/about" secondary={true}
-         style={{backgroundColor: '#00bcd4', color: 'white'}}
-         rippleColor="white" label="A propos" />
-      </h3>
-    </Paper>;
+    return (
+      <Paper rounded={false} zDepth={2} style={this.props.style}>
+        <h3>
+          <FlatButton linkButton={true} href="/" secondary={true}
+           style={{backgroundColor: '#00bcd4', color: 'white'}}
+           rippleColor="white" label={this.props.title} />
+          <FlatButton linkButton={true} href="/about" secondary={true}
+           style={{backgroundColor: '#00bcd4', color: 'white'}}
+           rippleColor="white" label="A propos" />
+        </h3>
+      </Paper>
+    );
   }
 };

@@ -4,7 +4,7 @@ import Paper from 'material-ui/lib/paper';
 
 export default class ContentWrapper extends Component {
   static defaultProps = {
-    style: {
+    mainStyle: {
       margin: '94px 30% 0',
       position: 'absolute',
       width: '40%'
@@ -12,8 +12,10 @@ export default class ContentWrapper extends Component {
   }
 
   render() {
-    return <Paper rounded={false} zDepth={0} style={this.props.style}>
-      {this.props.children}
-    </Paper>;
+    return (
+      <Paper rounded={false} zDepth={0} style={this.props.mainStyle}>
+        {this.props.children}
+      </Paper>
+    );
   }
 };

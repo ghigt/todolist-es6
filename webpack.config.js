@@ -1,6 +1,6 @@
 module.exports = {
   context: __dirname + '/src',
-  entry: './main.jsx',
+  entry: './main.prd.jsx',
   output: {
     path: __dirname + '/build',
     filename: 'bundle.js'
@@ -15,7 +15,8 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015'],
+          plugins: ['transform-class-properties']
         }
       }
     ]

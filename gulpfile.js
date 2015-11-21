@@ -13,20 +13,16 @@ gulp.task('watch', ['client', 'server'], () => {
 
 gulp.task('server', () =>
   gulp.src('src/{containers,components}/**/*.{js,jsx}')
-    .pipe(babel({
-      presets: ['es2015', 'react']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('lib')));
 
 gulp.task('client', () =>
   gulp.src('src/**/*.{js,jsx}')
-    .pipe(babel({
-      presets: ['es2015', 'react']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('app')));
 
 gulp.task('build', () =>
-  gulp.src('src/main.jsx')
+  gulp.src('src/main.prd.jsx')
     .pipe(webpack(require('./webpack.config')))
     .pipe(uglify())
     .pipe(gulp.dest('build')));

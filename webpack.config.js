@@ -1,6 +1,6 @@
 module.exports = {
   context: __dirname + '/src',
-  entry: './main.prd.jsx',
+  entry: './main.js',
   output: {
     path: __dirname + '/build',
     filename: 'bundle.js'

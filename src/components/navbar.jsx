@@ -26,6 +26,6 @@ export default class NavBar extends Component {
          style={{backgroundColor: '#00bcd4', color: 'white'}}
          rippleColor="white" label="A propos" />
       </h3>
-    </Paper>;
+    </Paper>
   }
 };

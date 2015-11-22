@@ -5,5 +5,10 @@ typings
 bower_components
 lib/components
 lib/containers
+lib/actions
+lib/dispatcher
+lib/store
+lib/constants
+lib/reducers
 public/jspm_packages
 build

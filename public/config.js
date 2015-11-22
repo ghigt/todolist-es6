@@ -10,12 +10,16 @@ System.config({
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "core-js": "npm:core-js@1.2.6",
+    "events": "github:jspm/nodelibs-events@0.1.1",
     "material-ui": "npm:material-ui@0.13.3",
     "react": "npm:react@0.14.3",
     "react-dom": "npm:react-dom@0.14.3",
+    "react-redux": "npm:react-redux@4.0.0",
     "react-svg-icons": "npm:react-svg-icons@0.2.0",
+    "redux": "npm:redux@3.0.4",
     "traceur": "github:jmcriffey/bower-traceur@0.0.92",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.92",
+    "whatwg-fetch": "npm:whatwg-fetch@0.10.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -238,6 +242,10 @@ System.config({
       "caniuse-api": "npm:caniuse-api@1.4.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:invariant@2.2.0": {
+      "loose-envify": "npm:loose-envify@1.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:js-yaml@3.3.1": {
       "argparse": "npm:argparse@1.0.3",
       "esprima": "npm:esprima@2.2.0",
@@ -392,6 +400,13 @@ System.config({
     "npm:react-dom@0.14.3": {
       "react": "npm:react@0.14.3"
     },
+    "npm:react-redux@4.0.0": {
+      "hoist-non-react-statics": "npm:hoist-non-react-statics@1.0.3",
+      "invariant": "npm:invariant@2.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "react": "npm:react@0.14.3",
+      "redux": "npm:redux@3.0.4"
+    },
     "npm:react-svg-icons@0.2.0": {
       "object-assign": "npm:object-assign@3.0.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -435,6 +450,9 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "minimatch": "npm:minimatch@0.3.0",
       "path": "github:jspm/nodelibs-path@0.1.0"
+    },
+    "npm:redux@3.0.4": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:sax@1.1.4": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",

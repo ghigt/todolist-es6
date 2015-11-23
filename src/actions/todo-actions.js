@@ -18,11 +18,11 @@ const TodoActions = {
     });
   },
 
-  toggleActivity(todo, active) {
+  update(todo, updates) {
     Dispatcher.dispatch({
       todo,
-      active,
-      eventName: 'toggle-todo-activity',
+      updates,
+      eventName: 'toggle-todo-update',
     });
   }
 };

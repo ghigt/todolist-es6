@@ -51,7 +51,6 @@ export default class TodoList extends Component {
       errorMessage: `Impossible de créer l'entrée: Erreur ${res.status} - ${res.statusText}`
     });
     this.refs.error.show();
-    this.forceUpdate();
   }
 
   submit(event) {

@@ -4,6 +4,7 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Toggle from 'material-ui/lib/toggle';
 
 import TodoActions from '../../actions/todo-actions';
+import TodoStore from '../../stores/todo-store';
 
 export default class Todo extends Component {
   static defaultProps = {
@@ -21,8 +22,8 @@ export default class Todo extends Component {
     this.onToggle = this.onToggle.bind(this);
   }
 
-  onToggle(event, toggled) {
-    TodoActions.toggleActivity(this.props.element, toggled);
+  onToggle(event, active) {
+    TodoActions.update(this.props.element, {active});
   }
 
   render() {

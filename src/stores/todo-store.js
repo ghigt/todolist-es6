@@ -1,5 +1,6 @@
 import {EventEmitter} from 'events';
 import Dispatcher from '../dispatcher/index';
+import jsonpatch from 'fast-json-patch';
 
 const TodoStore = Object.assign({}, EventEmitter.prototype, {
   todos: [],
@@ -12,12 +13,37 @@ const TodoStore = Object.assign({}, EventEmitter.prototype, {
     return this.todos;
   },
 
+  update(todo, updates) {
+    const originalTodo = Object.assign({}, todo);
+
+    if(typeof fetch === 'function') {
+      return fetch(`/api/todo/${todo.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonpatch.compare(originalTodo, Object.assign(todo, updates)))
+      })
+      .then(res => {
+        if(!res.status.toString().startsWith('2')) {
+          jsonpatch.apply(todo, jsonpatch.compare(todo, originalTodo));
+          return Promise.reject(res);
+        } else {
+          return res;
+        }
+      });
+    } else {
+      return Promise.resolve();
+    }
+  },
+
   add(todo) {
     this.todos.push(todo);
 
     if(typeof fetch === 'function') {
-      fetch('/api/todo', {
-        method: 'post',
+      return fetch('/api/todo', {
+        method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -27,12 +53,13 @@ const TodoStore = Object.assign({}, EventEmitter.prototype, {
       .then(res => {
         if(!res.status.toString().startsWith('2')) {
           this.todos.splice(this.todos.indexOf(todo), 1);
-          this.emit('error', res);
+          return Promise.reject(res);
+        } else {
+          return res;
         }
-        return res;
       });
     } else {
-      this.emit('change');
+      return Promise.resolve();
     }
   }
 });
@@ -44,12 +71,14 @@ Dispatcher.register(payload => {
       TodoStore.emit('change');
       break;
     case 'new-todo-item':
-      TodoStore.add(payload.todo);
-      TodoStore.emit('change');
+      TodoStore.add(payload.todo)
+        .catch(err => TodoStore.emit('error', err))
+        .then(() => TodoStore.emit('change'))
       break;
-    case 'toggle-todo-activity':
-      payload.todo.active = payload.active;
-      TodoStore.emit('change');
+    case 'toggle-todo-update':
+      TodoStore.update(payload.todo, payload.updates)
+        .catch(err => TodoStore.emit('error', err))
+        .then(() => TodoStore.emit('change'))
       break;
   }
 

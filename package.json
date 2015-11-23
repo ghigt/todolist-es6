@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "install": "jspm install && gulp"
+    "install": "jspm install -y && gulp"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -19,10 +19,10 @@
     "flux": "^2.1.1",
     "jade": "^1.11.0",
     "material-ui": "^0.13.3",
-    "node-fetch": "^1.3.3",
     "normalize.css": "^3.0.3",
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "react-tap-event-plugin": "^0.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",

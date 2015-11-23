@@ -15,21 +15,25 @@ const TodoStore = Object.assign({}, EventEmitter.prototype, {
   add(todo) {
     this.todos.push(todo);
 
-    return fetch('/api/todo', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(todo)
-    })
-    .then(res => {
-      if(!res.status.toString().startsWith('2')) {
-        this.todos.splice(this.todos.indexOf(todo), 1);
-        this.emit('error', res);
-      }
-      return res;
-    });
+    if(typeof fetch === 'function') {
+      fetch('/api/todo', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+      })
+      .then(res => {
+        if(!res.status.toString().startsWith('2')) {
+          this.todos.splice(this.todos.indexOf(todo), 1);
+          this.emit('error', res);
+        }
+        return res;
+      });
+    } else {
+      this.emit('change');
+    }
   }
 });
 

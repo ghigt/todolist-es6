@@ -56,6 +56,7 @@ export default class TodoList extends Component {
 
   submit(event) {
     TodoActions.add(this.refs.todo.getValue());
+    this.refs.todo.setValue('');
     event.preventDefault();
   }
 

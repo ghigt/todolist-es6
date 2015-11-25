@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
 
-import Avatar from 'material-ui/lib/avatar';
-
-import Card from 'material-ui/lib/card/card';
-import CardHeader from 'material-ui/lib/card/card-header';
-
-import List from 'material-ui/lib/lists/list';
-import TextField from 'material-ui/lib/text-field';
-
-import Snackbar from 'material-ui/lib/snackbar';
-
 import TodoStore from '../../stores/todo-store';
 import TodoActions from '../../actions/todo-actions';
+
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+
+import Input from 'react-bootstrap/lib/Input';
 
 import Todo from './todo';
 
@@ -23,7 +21,8 @@ export default class TodoList extends Component {
   }
 
   state = {
-    errorMessage: ''
+    errorMessage: '',
+    value: ''
   }
 
   constructor(props) {
@@ -34,6 +33,7 @@ export default class TodoList extends Component {
     this.submit = this.submit.bind(this);
     this.forceUpdate = this.forceUpdate.bind(this);
     this.displayError = this.displayError.bind(this);
+    this.change = this.change.bind(this);
   }
 
   componentDidMount() {
@@ -53,27 +53,37 @@ export default class TodoList extends Component {
     this.refs.error.show();
   }
 
+  change() {
+    this.setState({
+      value: this.refs.input.getValue()
+    });
+  }
+
   submit(event) {
-    TodoActions.add(this.refs.todo.getValue());
-    this.refs.todo.setValue('');
+    TodoActions.add(this.refs.input.getValue());
+    this.setState({value: ''});
     event.preventDefault();
   }
 
   render() {
     return (
-      <Card>
-        <CardHeader title="Liste de choses à faire" avatar={<Avatar>A</Avatar>} />
-        <form onSubmit={this.submit} style={this.props.formStyle}>
-          <TextField ref="todo" hintText="Que devez-vous faire?" fullWidth={true} />
-        </form>
-        <List>
-          {TodoStore.getAll().map((element, i) => <Todo key={i} element={element} />)}
-        </List>
-        <Snackbar
-          ref="error" action="erreur"
-          message={this.state.errorMessage}
-          autoHideDuration={2000} />
-      </Card>
+      <Row>
+        <Col xs={12}>
+          <h3>Liste de choses à faire</h3>
+          <ListGroup>
+            <ListGroupItem>
+              <form onSubmit={this.submit} style={this.props.formStyle}>
+                <Input ref="input" type="text" value={this.state.value} placeholder="Que devez-vous faire?" onChange={this.change} />
+              </form>
+            </ListGroupItem>
+            {TodoStore.getAll().map((element, i) => <Todo key={i} element={element} />)}
+          </ListGroup>
+        </Col>
+      </Row>
     );
+    //    <Snackbar
+    //      ref="error" action="erreur"
+    //      message={this.state.errorMessage}
+    //      autoHideDuration={2000} />
   }
 };

@@ -1,33 +1,24 @@
 import React, {Component} from 'react';
 
-import Paper from 'material-ui/lib/paper';
-import FlatButton from 'material-ui/lib/flat-button';
+import BNavbar from 'react-bootstrap/lib/Navbar';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import Nav from 'react-bootstrap/lib/Nav';
 
-export default class NavBar extends Component {
-  static defaultProps = {
-    style: {
-      backgroundColor: '#00bcd4',
-      color: 'white',
-      height: 64,
-      padding: '0 30px',
-      position: 'fixed',
-      width: '100%',
-      zIndex: 9999
-    }
-  }
-
+export default class Navbar extends Component {
   render() {
     return (
-      <Paper rounded={false} zDepth={2} style={this.props.style}>
-        <h3>
-          <FlatButton linkButton={true} href="/" secondary={true}
-           style={{backgroundColor: '#00bcd4', color: 'white'}}
-           rippleColor="white" label={this.props.title} />
-          <FlatButton linkButton={true} href="/about" secondary={true}
-           style={{backgroundColor: '#00bcd4', color: 'white'}}
-           rippleColor="white" label="A propos" />
-        </h3>
-      </Paper>
+      <BNavbar fixedTop={true} inverse>
+        <BNavbar.Header>
+          <BNavbar.Brand>
+            <a href="/">{this.props.title}</a>
+          </BNavbar.Brand>
+        </BNavbar.Header>
+        <BNavbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1} href="/about">A propos</NavItem>
+          </Nav>
+        </BNavbar.Collapse>
+      </BNavbar>
     );
   }
 };

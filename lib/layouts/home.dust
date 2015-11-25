@@ -2,6 +2,8 @@
   <head>
     <title>{?title}{title}{:else}Todolist{/title}</title>
     <link href="./vendors/normalize.css/normalize.css" rel="stylesheet">
+    <link href="./vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  </head>
   <body>
     <div id="content">{content|s}</div>
     <script type="application/json" id="data">{data|s}</script>

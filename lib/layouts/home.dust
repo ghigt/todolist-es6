@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>{?title}{title}{:else}Todolist{/title}</title>
+    <link href="./vendors/normalize.css/normalize.css" rel="stylesheet">
+  <body>
+    <div id="content">{content|s}</div>
+    <script type="application/json" id="data">{data|s}</script>
+    {#production}
+      <script src="/bundle.js"></script>
+    {:else}
+      <script src="/jspm_packages/system.js"></script>
+      <script src="/config.js"></script>
+      <script>System.import('/app/main');</script>
+    {/production}
+  </body>
+</html>

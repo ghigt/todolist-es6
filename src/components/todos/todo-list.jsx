@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/lib/Col';
 
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import Alert from 'react-bootstrap/lib/Alert';
 
 import Input from 'react-bootstrap/lib/Input';
 
@@ -20,13 +21,13 @@ export default class TodoList extends Component {
     }
   }
 
-  state = {
-    errorMessage: '',
-    value: ''
-  }
-
   constructor(props) {
     super(props);
+    this.state = {
+      errorMessage: '',
+      value: '',
+      alertVisible: false
+    }
 
     TodoActions.init(this.props.elements);
 
@@ -34,6 +35,8 @@ export default class TodoList extends Component {
     this.forceUpdate = this.forceUpdate.bind(this);
     this.displayError = this.displayError.bind(this);
     this.change = this.change.bind(this);
+    this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+    this.handleAlertShow = this.handleAlertShow.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +53,7 @@ export default class TodoList extends Component {
     this.setState({
       errorMessage: `Impossible de créer l'entrée: Erreur ${res.status} - ${res.statusText}`
     });
-    this.refs.error.show();
+    this.handleAlertShow();
   }
 
   change() {
@@ -65,10 +68,23 @@ export default class TodoList extends Component {
     event.preventDefault();
   }
 
+  handleAlertDismiss() {
+    this.setState({alertVisible: false});
+  }
+
+  handleAlertShow() {
+    this.setState({alertVisible: true});
+  }
+
   render() {
-    return (
+    return <div>
+      {this.state.alertVisible ?
+        <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss} dismissAfter={2000}>
+          <h4>Erreur</h4>
+          <p>{this.state.errorMessage}</p>
+        </Alert> : null}
       <Row>
-        <Col xs={12}>
+        <Col>
           <h3>Liste de choses à faire</h3>
           <ListGroup>
             <ListGroupItem>
@@ -80,10 +96,6 @@ export default class TodoList extends Component {
           </ListGroup>
         </Col>
       </Row>
-    );
-    //    <Snackbar
-    //      ref="error" action="erreur"
-    //      message={this.state.errorMessage}
-    //      autoHideDuration={2000} />
+     </div>;
   }
 };
